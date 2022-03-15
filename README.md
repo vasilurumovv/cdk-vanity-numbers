@@ -32,6 +32,15 @@ Deliverables
 
 	•	Please include an architecture diagram.
 # Project Documentation
+### Quick Start
+- cd cdk-vanity-numbers
+- npm install
+- cdk bootstrap
+- cdk deploy
+- cdk deploy --parameters connectInstanceId='YOUR CONNECT INSTANCE ID' --parameters contactFlowName='NAME FOR NEW CONTACT FLOW'
+Enter y when asked to confirm the changes.
+- cdk diff - compare deployed stack with current state
+- cdk synth - emits the synthesized CloudFormation template
 ### Infrastructure
             - Database: AWS DynamoDB
             - Compute: AWS Lambda (Node 14.x)

@@ -92,7 +92,7 @@ If I had more time I would definetely split this function into multiple scripts.
             "phoneNumber": { "type": "string" }
         }
     }
-       ```
+
 ### Amazon Connect & Contact flows
 
 Amazon connect is a completely new part of AWS to me. After watching few tutorials it was pretty straight forward to work with the Amazon Connect panel and create the contact flows. The challange in this case was to understand the options that Amazonn Connect give us and how to store and work with parameters and attributes. If I had more time I would divided the workflow into more dialogs and make it more detailed and user friendly.

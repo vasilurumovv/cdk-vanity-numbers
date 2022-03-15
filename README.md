@@ -55,7 +55,7 @@ Enter y when asked to confirm the changes.
 
 ### DynamoDB Tables
 Started by creating DynamoDB Table called "VanityNumbersTable" and set the primaryKey to be "phoneNumber".
-Then I have created one dummy item which will reflect the structure of items that I will save in the database:
+Then I have created one dummy item which will reflect the structure of items that will be saved in the database:
 
   ```
     {
@@ -87,19 +87,26 @@ If I had more time I would definetely split this function into multiple scripts.
     - Deployment Stage: Dev
         - Base URL: https://0zv4m6zpze.execute-api.us-east-1.amazonaws.com/dev
     - /Methods
-        - GET()
-            - Description: Executes the VanityNumbersAPI-vanity-numbers Lambda Function
-            - URL Query String Parameters: phoneNumber
-                - phoneNumber [the number that will be used to query the results database table.]
         - POST()
-            - Description: Executes the VanityNumbersAPI-vanity-numbers-generator Lambda Function.
-            - body Model: application/json
+            - Description: Executes the VanityNumbersAPI/vanity-numbers-generator Lambda Function. Accepts phoneNumber as parameter from
+            request body and returns three vanity numbers.
+            - request body Model: application/json
     ```
     {
-        "title": "VanityNumberModel",
+        "title": "VanityNumberGeneratorModel",
         "type": "object",
         "properties": {
             "phoneNumber": { "type": "string" }
+        }
+    }
+
+    - returns object
+    ```
+    {
+    "statusCode": {"type": "number"},
+    "body": {
+        "type": "array",
+        "items": { "type": "string" }
         }
     }
 
@@ -109,7 +116,7 @@ Amazon connect is a completely new part of AWS to me. After watching few tutoria
 
 #### Issue with claiming phone number in Amazon Connect
 
-I had problem with claiming a phone number. For some reason I am not able to claim a number in Amazon Connect. Altough, I have no claimed numbers, Despite the fact that I have none phone numbers claimed, I constantly get feedback that I have reached the maximum of claimed numbers. For that reason I will hardcode the phoneNumber in my Lambda function until I contact support and fix that issue.
+I had problem with claiming a phone number. For some reason I am not able to claim a number in Amazon Connect. Altough, I have no claimed numbers, Despite the fact that I have none phone numbers claimed, I constantly get feedback that I have reached the maximum of claimed numbers. For that reason I will hardcode the phoneNumber in my Lambda function to simulate invoking the function with param from Contact Flow. This will be temporary until I contact support and fix that issue.
 
 The Hard Coded Phone Number I have used for testing:
 
@@ -155,4 +162,4 @@ What I would like to improve:
 TBA
 
 ### Conclusion
-Overall, I am happy with what I have done and I belive that I understood the fundamentals of different parts of AWS and the opportunities that it provides us with. If I have worked with AWS before I would probably start building the project using the IDE in Cloud9 panel from the early beggining.I was a bit disapointed about the issue with claiming phone number and I hope that I will be able to handle it after contacting the support. Another  I would like to try consuming the generating vanity numbers endpoint in real application and present the results.
+Overall, I am happy with what I have done and I belive that I understood the fundamentals of different parts of AWS and the opportunities that it provides us with. If I have worked with AWS before I would probably start building the project using the IDE in Cloud9 panel from the early beggining.I was a bit disapointed about the issue with claiming phone number in the Amazon Connect and I hope that I will be able to handle it after contacting the support. Another  I would like to try consuming the generating vanity numbers endpoint in real application and present the results.

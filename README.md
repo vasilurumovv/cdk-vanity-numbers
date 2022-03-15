@@ -74,14 +74,17 @@ Deliverables
         - Description: Creates and saves 5 vanity numbers related to the phoneNumber and returns the last best three vanity numbers dynamoDB table. If the numbers is already saved in the dynamoDB it only returns the vanityNumbers generated.
 ### DynamoDB Tables
 
-### Amazon Connect
-- Amazon Connect phone Number: For some reason I am not able to claim a number in Amazon Connect. I have no claimed numbers and I receive as a feedback that I have reached the maximum of claimed numbers. For that reason I will hardcode the phoneNumber until I contact support and fix that isse.
+### Amazon Connect & Contact flows
+
+Amazon connect is a completely new part of AWS to me. After watching few tutorials it was pretty straight forward to create the contact flows, however I had problem with claiming a phone number. Despite the fact that I have none phone numbers claimed, I constantly get that I have exceeded the number of phone numbers. The challanges here we to understand the options that Amazonn Connect give us and how to store and work with parameters and attributes. If I had more time I would divided the workflow into more dialogs and make it more detailed and user friendly.
+
+- Issue with Amazon Connect phone Number: For some reason I am not able to claim a number in Amazon Connect. I have no claimed numbers and I receive as a feedback that I have reached the maximum of claimed numbers. For that reason I will hardcode the phoneNumber until I contact support and fix that isse.
+
 1 (214) 211-2879 / 1 (214) 211-BUSY.
-- See [Contact Flow Diagrams]
+
+- [Contact Flow Diagrams]
 - ![Greeting Dialog](https://github.com/vasilurumovv/cdk-vanity-numbers/blob/1f6c4c08108869e72083521ff45a44d87747c6c1/photos/greetingDialog.png)
 - (![OnBoarding Dialog](https://github.com/vasilurumovv/cdk-vanity-numbers/blob/1f6c4c08108869e72083521ff45a44d87747c6c1/photos/onBoardingDialog.png))
-
-
 
 ### Retrospective
 
@@ -100,10 +103,6 @@ I created a total of 3 Lambda functions, while I played around. However the logi
 	- Description: Creates and saves 5 vanity numbers related to the phoneNumber and returns the last best three vanity numbers dynamoDB table. If the numbers is already saved in the dynamoDB it only returns the best three vanityNumbers generated.
 
 If I had more time I would definetely spend it on improving the vanity numbers generator. In this solution I simply format the phoneNumber entered and suggest a vanity numbers by transforming only the last 4 digits of a numbers.
-
-#### Contact Flow
-Amazon connect is a completely new part of AWS to me. After watching few tutorials it was pretty straight forward to create the contact flows, however I had problem with claiming a phone number. Despite the fact that I have none phone numbers claimed, I constantly get that I have exceeded the number of phone numbers. The challanges here we to understand the options that Amazonn Connect give us and how to store and work with parameters and attributes. If I had more time I would divided the workflow into more dialogs and make it more detailed and user friendly.
-//Add Picture of Contact flows
 
 #### Website
 TBA

@@ -69,7 +69,7 @@ I have implemented an algorithm for generating the best vanity numbers. The way 
         - Description: Creates and saves 5 vanity numbers related to the phoneNumber and returns the last best three vanity numbers dynamoDB table. If the numbers is already saved in the dynamoDB it only returns the vanityNumbers generated.
 
 If I had more time I would definetely split this function into multiple scripts.
-### Amazon API Gateway
+### Amazon API Gateway / RestAPI
 - voiceFoundry-VanityNumbers
     - !Important: This API Gateway was quickly thrown together, and I am well aware that it contains many security flaws that should never be in production!
     - API is set up with cors to work with external sources.
@@ -84,15 +84,15 @@ If I had more time I would definetely split this function into multiple scripts.
             - Description: Executes the VanityNumbersAPI-vanity-numbers-generator Lambda Function.
             - body Model: application/json
 
-                ```
-                {
-                    "type":"object",
-                    "properties" : {
-                        "phoneNumber": {"type": "string"}
-                    },
-                    "title": "Input"
-                }
-                ```
+        ```
+    {
+        "title": "VanityNumberModel",
+        "type": "object",
+        "properties": {
+            "phoneNumber": { "type": "string" }
+        }
+    }
+        ```
 ### Amazon Connect & Contact flows
 
 Amazon connect is a completely new part of AWS to me. After watching few tutorials it was pretty straight forward to work with the Amazon Connect panel and create the contact flows. The challange in this case was to understand the options that Amazonn Connect give us and how to store and work with parameters and attributes. If I had more time I would divided the workflow into more dialogs and make it more detailed and user friendly.
@@ -118,8 +118,8 @@ The three best generated vanity numbers returned:
 - ![Greeting Dialog](https://github.com/vasilurumovv/cdk-vanity-numbers/blob/1f6c4c08108869e72083521ff45a44d87747c6c1/photos/greetingDialog.png)
 - (![OnBoarding Dialog](https://github.com/vasilurumovv/cdk-vanity-numbers/blob/1f6c4c08108869e72083521ff45a44d87747c6c1/photos/onBoardingDialog.png))
 
-#### Cloud Formation
-
+#### AWS Cloud Development Kit and Cloud Formation (CDK) 
+The last things I played around with are the CDK, Cloud Formation and the IDE in AWS Cloud9 panel. I was able to create CDK project from the Cloud9 terminal and found it way easier and understandable then creating everything from AWS panel. This method reminded me of Code First approach in building DataBases (using .NET Core Framework for example).
 ### Retrospective
 
 #### Final Thoughts
@@ -129,9 +129,13 @@ I have never dealed with AWS resources and I found this project very intriguing.
 The short time and the upcoming deadline made me put some constrains on the project in order to present a MVP. 
 What I would like to improve:
 
-- The algorithm behind generating best vanity numbers currently transforms only the last 4 digits of the number into characters. The way I choose which are the best vanity numbers is by looking up into hardcoded list of words. To improve that we can later on use word dictionary plugin or get many words from other sources.
+- Currently the algorithm behind generating best vanity numbers transforms only the last 4 digits of the number into characters. There is great opportunity to improve the algorithm and transform and suggest vanity numbers including all the phone digits.
+
+- The way I choose which are the best vanity numbers is by looking up into hardcoded list of words. To improve that we can later on use word dictionary plugin or get many words from other sources.
 
 - I would definetely split the generating vanity numbers Lambda function into multiple scripts.
+
+- Build the whole project by using the IDE in Cloud9 panel.
 
 - Take into consideration roles, policies and permissions.
 
@@ -140,4 +144,4 @@ What I would like to improve:
 TBA
 
 #### Conclusion
-Overall, I am happy with what I have done and I belive that I understood the fundamentals of different parts of AWS and the opportunities that it provides us with. I was a bit disapointed about the issue with claiming phone number and I hope that I will be able to handle it after contacting the support. I would also like to try consuming the generating vanity numbers endpoint in real application and present the results.
+Overall, I am happy with what I have done and I belive that I understood the fundamentals of different parts of AWS and the opportunities that it provides us with. If I have worked with AWS before I would probably start building the project using the IDE in Cloud9 panel from the early beggining.I was a bit disapointed about the issue with claiming phone number and I hope that I will be able to handle it after contacting the support. Another  I would like to try consuming the generating vanity numbers endpoint in real application and present the results.

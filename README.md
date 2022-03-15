@@ -104,7 +104,7 @@ If I had more time I would definetely split this function into multiple scripts.
     ```
     {
     "statusCode": {"type": "number"},
-    "body": {
+    "vanityNumbers": {
         "type": "array",
         "items": { "type": "string" }
         }

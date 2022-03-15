@@ -112,9 +112,8 @@ The three best generated vanity numbers returned:
         "1 (214) 211-ATPZ",
         "1 (214) 211-ATQW",
         "1 (214) 211-BUSY"
-
         ]
-    ```
+    
 
 Contact Flow Diagrams:
 ![Greeting Dialog](https://github.com/vasilurumovv/cdk-vanity-numbers/blob/1f6c4c08108869e72083521ff45a44d87747c6c1/photos/greetingDialog.png)

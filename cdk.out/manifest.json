@@ -23,7 +23,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/f26f267cf964adde0f6d9a8483c94324f7d614682b4735f04b1b33a0a7415bf2.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/58d46611eb7a9ebe21632bc8ad8e136ea4257e3b8c8153efafbdf6ef374c8e1d.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -39,6 +39,108 @@
         "CdkVanityNumbersStack.assets"
       ],
       "metadata": {
+        "/CdkVanityNumbersStack/VanityNumbersTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VanityNumbersTableE4C1F084"
+          }
+        ],
+        "/CdkVanityNumbersStack/GenerateVanityHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenerateVanityHandlerServiceRoleDD3C2390"
+          }
+        ],
+        "/CdkVanityNumbersStack/GenerateVanityHandler/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenerateVanityHandlerServiceRoleDefaultPolicy68514F72"
+          }
+        ],
+        "/CdkVanityNumbersStack/GenerateVanityHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GenerateVanityHandlerC36A4383"
+          }
+        ],
+        "/CdkVanityNumbersStack/cdk-vanity-numbers-api/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cdkvanitynumbersapiC6B21F41"
+          }
+        ],
+        "/CdkVanityNumbersStack/cdk-vanity-numbers-api/CloudWatchRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cdkvanitynumbersapiCloudWatchRole85127E74"
+          }
+        ],
+        "/CdkVanityNumbersStack/cdk-vanity-numbers-api/Account": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cdkvanitynumbersapiAccount06AD5483"
+          }
+        ],
+        "/CdkVanityNumbersStack/cdk-vanity-numbers-api/Deployment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cdkvanitynumbersapiDeploymentF7302070d3d4cc0226149d0c0db806334f5ffd7b"
+          }
+        ],
+        "/CdkVanityNumbersStack/cdk-vanity-numbers-api/DeploymentStage.prod/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cdkvanitynumbersapiDeploymentStageprod77044C3A"
+          }
+        ],
+        "/CdkVanityNumbersStack/cdk-vanity-numbers-api/Endpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cdkvanitynumbersapiEndpoint66446D70"
+          }
+        ],
+        "/CdkVanityNumbersStack/cdk-vanity-numbers-api/Default/{proxy+}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cdkvanitynumbersapiproxy7DA42A28"
+          }
+        ],
+        "/CdkVanityNumbersStack/cdk-vanity-numbers-api/Default/{proxy+}/ANY/ApiPermission.CdkVanityNumbersStackcdkvanitynumbersapi75E16C84.ANY..{proxy+}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cdkvanitynumbersapiproxyANYApiPermissionCdkVanityNumbersStackcdkvanitynumbersapi75E16C84ANYproxyCC670568"
+          }
+        ],
+        "/CdkVanityNumbersStack/cdk-vanity-numbers-api/Default/{proxy+}/ANY/ApiPermission.Test.CdkVanityNumbersStackcdkvanitynumbersapi75E16C84.ANY..{proxy+}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cdkvanitynumbersapiproxyANYApiPermissionTestCdkVanityNumbersStackcdkvanitynumbersapi75E16C84ANYproxyC7C9CD5A"
+          }
+        ],
+        "/CdkVanityNumbersStack/cdk-vanity-numbers-api/Default/{proxy+}/ANY/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cdkvanitynumbersapiproxyANY34D0EEA5"
+          }
+        ],
+        "/CdkVanityNumbersStack/cdk-vanity-numbers-api/Default/ANY/ApiPermission.CdkVanityNumbersStackcdkvanitynumbersapi75E16C84.ANY..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cdkvanitynumbersapiANYApiPermissionCdkVanityNumbersStackcdkvanitynumbersapi75E16C84ANY4B8E5652"
+          }
+        ],
+        "/CdkVanityNumbersStack/cdk-vanity-numbers-api/Default/ANY/ApiPermission.Test.CdkVanityNumbersStackcdkvanitynumbersapi75E16C84.ANY..": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cdkvanitynumbersapiANYApiPermissionTestCdkVanityNumbersStackcdkvanitynumbersapi75E16C84ANYBA2DABEB"
+          }
+        ],
+        "/CdkVanityNumbersStack/cdk-vanity-numbers-api/Default/ANY/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cdkvanitynumbersapiANY3C2F562B"
+          }
+        ],
         "/CdkVanityNumbersStack/CDKMetadata/Default": [
           {
             "type": "aws:cdk:logicalId",

@@ -1,7 +1,20 @@
 {
   "version": "16.0.0",
   "files": {
-    "f26f267cf964adde0f6d9a8483c94324f7d614682b4735f04b1b33a0a7415bf2": {
+    "f31e50648bfce5677778b8b607966af97f807840c4b87c11df2a3d654c9304d9": {
+      "source": {
+        "path": "asset.f31e50648bfce5677778b8b607966af97f807840c4b87c11df2a3d654c9304d9.zip",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "f31e50648bfce5677778b8b607966af97f807840c4b87c11df2a3d654c9304d9.zip",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    },
+    "58d46611eb7a9ebe21632bc8ad8e136ea4257e3b8c8153efafbdf6ef374c8e1d": {
       "source": {
         "path": "CdkVanityNumbersStack.template.json",
         "packaging": "file"
@@ -9,7 +22,7 @@
       "destinations": {
         "current_account-current_region": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "f26f267cf964adde0f6d9a8483c94324f7d614682b4735f04b1b33a0a7415bf2.json",
+          "objectKey": "58d46611eb7a9ebe21632bc8ad8e136ea4257e3b8c8153efafbdf6ef374c8e1d.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }

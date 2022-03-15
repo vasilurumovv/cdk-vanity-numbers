@@ -1,14 +1,555 @@
 {
   "Resources": {
+    "VanityNumbersTableE4C1F084": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "phoneNumber",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "phoneNumber",
+            "AttributeType": "S"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        }
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "CdkVanityNumbersStack/VanityNumbersTable/Resource"
+      }
+    },
+    "GenerateVanityHandlerServiceRoleDD3C2390": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          }
+        ]
+      },
+      "DependsOn": [
+        "VanityNumbersTableE4C1F084"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "CdkVanityNumbersStack/GenerateVanityHandler/ServiceRole/Resource"
+      }
+    },
+    "GenerateVanityHandlerServiceRoleDefaultPolicy68514F72": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:DescribeTable"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "VanityNumbersTableE4C1F084",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Ref": "AWS::NoValue"
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "GenerateVanityHandlerServiceRoleDefaultPolicy68514F72",
+        "Roles": [
+          {
+            "Ref": "GenerateVanityHandlerServiceRoleDD3C2390"
+          }
+        ]
+      },
+      "DependsOn": [
+        "VanityNumbersTableE4C1F084"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "CdkVanityNumbersStack/GenerateVanityHandler/ServiceRole/DefaultPolicy/Resource"
+      }
+    },
+    "GenerateVanityHandlerC36A4383": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+          },
+          "S3Key": "f31e50648bfce5677778b8b607966af97f807840c4b87c11df2a3d654c9304d9.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "GenerateVanityHandlerServiceRoleDD3C2390",
+            "Arn"
+          ]
+        },
+        "Handler": "index.handler",
+        "Runtime": "nodejs14.x"
+      },
+      "DependsOn": [
+        "GenerateVanityHandlerServiceRoleDefaultPolicy68514F72",
+        "GenerateVanityHandlerServiceRoleDD3C2390",
+        "VanityNumbersTableE4C1F084"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "CdkVanityNumbersStack/GenerateVanityHandler/Resource",
+        "aws:asset:path": "asset.f31e50648bfce5677778b8b607966af97f807840c4b87c11df2a3d654c9304d9.zip",
+        "aws:asset:is-bundled": false,
+        "aws:asset:property": "Code"
+      }
+    },
+    "cdkvanitynumbersapiC6B21F41": {
+      "Type": "AWS::ApiGateway::RestApi",
+      "Properties": {
+        "Name": "cdk-vanity-numbers-api"
+      },
+      "Metadata": {
+        "aws:cdk:path": "CdkVanityNumbersStack/cdk-vanity-numbers-api/Resource"
+      }
+    },
+    "cdkvanitynumbersapiCloudWatchRole85127E74": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "apigateway.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "CdkVanityNumbersStack/cdk-vanity-numbers-api/CloudWatchRole/Resource"
+      }
+    },
+    "cdkvanitynumbersapiAccount06AD5483": {
+      "Type": "AWS::ApiGateway::Account",
+      "Properties": {
+        "CloudWatchRoleArn": {
+          "Fn::GetAtt": [
+            "cdkvanitynumbersapiCloudWatchRole85127E74",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "cdkvanitynumbersapiC6B21F41"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "CdkVanityNumbersStack/cdk-vanity-numbers-api/Account"
+      }
+    },
+    "cdkvanitynumbersapiDeploymentF7302070d3d4cc0226149d0c0db806334f5ffd7b": {
+      "Type": "AWS::ApiGateway::Deployment",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "cdkvanitynumbersapiC6B21F41"
+        },
+        "Description": "Automatically created by the RestApi construct"
+      },
+      "DependsOn": [
+        "cdkvanitynumbersapiproxyANY34D0EEA5",
+        "cdkvanitynumbersapiproxy7DA42A28",
+        "cdkvanitynumbersapiANY3C2F562B"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "CdkVanityNumbersStack/cdk-vanity-numbers-api/Deployment/Resource"
+      }
+    },
+    "cdkvanitynumbersapiDeploymentStageprod77044C3A": {
+      "Type": "AWS::ApiGateway::Stage",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "cdkvanitynumbersapiC6B21F41"
+        },
+        "DeploymentId": {
+          "Ref": "cdkvanitynumbersapiDeploymentF7302070d3d4cc0226149d0c0db806334f5ffd7b"
+        },
+        "StageName": "prod"
+      },
+      "DependsOn": [
+        "cdkvanitynumbersapiAccount06AD5483"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "CdkVanityNumbersStack/cdk-vanity-numbers-api/DeploymentStage.prod/Resource"
+      }
+    },
+    "cdkvanitynumbersapiproxy7DA42A28": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "cdkvanitynumbersapiC6B21F41",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "{proxy+}",
+        "RestApiId": {
+          "Ref": "cdkvanitynumbersapiC6B21F41"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "CdkVanityNumbersStack/cdk-vanity-numbers-api/Default/{proxy+}/Resource"
+      }
+    },
+    "cdkvanitynumbersapiproxyANYApiPermissionCdkVanityNumbersStackcdkvanitynumbersapi75E16C84ANYproxyCC670568": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "GenerateVanityHandlerC36A4383",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "cdkvanitynumbersapiC6B21F41"
+              },
+              "/",
+              {
+                "Ref": "cdkvanitynumbersapiDeploymentStageprod77044C3A"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "CdkVanityNumbersStack/cdk-vanity-numbers-api/Default/{proxy+}/ANY/ApiPermission.CdkVanityNumbersStackcdkvanitynumbersapi75E16C84.ANY..{proxy+}"
+      }
+    },
+    "cdkvanitynumbersapiproxyANYApiPermissionTestCdkVanityNumbersStackcdkvanitynumbersapi75E16C84ANYproxyC7C9CD5A": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "GenerateVanityHandlerC36A4383",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "cdkvanitynumbersapiC6B21F41"
+              },
+              "/test-invoke-stage/*/*"
+            ]
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "CdkVanityNumbersStack/cdk-vanity-numbers-api/Default/{proxy+}/ANY/ApiPermission.Test.CdkVanityNumbersStackcdkvanitynumbersapi75E16C84.ANY..{proxy+}"
+      }
+    },
+    "cdkvanitynumbersapiproxyANY34D0EEA5": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "ANY",
+        "ResourceId": {
+          "Ref": "cdkvanitynumbersapiproxy7DA42A28"
+        },
+        "RestApiId": {
+          "Ref": "cdkvanitynumbersapiC6B21F41"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "GenerateVanityHandlerC36A4383",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "CdkVanityNumbersStack/cdk-vanity-numbers-api/Default/{proxy+}/ANY/Resource"
+      }
+    },
+    "cdkvanitynumbersapiANYApiPermissionCdkVanityNumbersStackcdkvanitynumbersapi75E16C84ANY4B8E5652": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "GenerateVanityHandlerC36A4383",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "cdkvanitynumbersapiC6B21F41"
+              },
+              "/",
+              {
+                "Ref": "cdkvanitynumbersapiDeploymentStageprod77044C3A"
+              },
+              "/*/"
+            ]
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "CdkVanityNumbersStack/cdk-vanity-numbers-api/Default/ANY/ApiPermission.CdkVanityNumbersStackcdkvanitynumbersapi75E16C84.ANY.."
+      }
+    },
+    "cdkvanitynumbersapiANYApiPermissionTestCdkVanityNumbersStackcdkvanitynumbersapi75E16C84ANYBA2DABEB": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "GenerateVanityHandlerC36A4383",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "cdkvanitynumbersapiC6B21F41"
+              },
+              "/test-invoke-stage/*/"
+            ]
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "CdkVanityNumbersStack/cdk-vanity-numbers-api/Default/ANY/ApiPermission.Test.CdkVanityNumbersStackcdkvanitynumbersapi75E16C84.ANY.."
+      }
+    },
+    "cdkvanitynumbersapiANY3C2F562B": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "ANY",
+        "ResourceId": {
+          "Fn::GetAtt": [
+            "cdkvanitynumbersapiC6B21F41",
+            "RootResourceId"
+          ]
+        },
+        "RestApiId": {
+          "Ref": "cdkvanitynumbersapiC6B21F41"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "GenerateVanityHandlerC36A4383",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "CdkVanityNumbersStack/cdk-vanity-numbers-api/Default/ANY/Resource"
+      }
+    },
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSMzTTM1BMLC/WTU7J1s3JTNKrDi5JTM7WcU7LC0otzi8tSk4FsZ3z81IySzLz82p18vJTUvWyivXLgFoNTYC6s4ozM3WLSvNKMnNT9YIgNABl1TMZWQAAAA=="
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WQTU/DMAyGfwv3NGwgce+GOIGoCvfJTczw2iRV4zCqqv8dN+VjnPz4jV/b8Y3e3unNFZxjYWxbdNTo6YXBtEqkw2RHDy5YEV+h6VDt33yGWXXgGgt6ekjeMAW/PF1yhYOjGCWbFYHTUx1Wf45V6MiMuS7TrOLtAWJEjrpcguR6l0yLvIOICno6AuMZRj095sk1Ri57yh3/sDQmJM/qHvsujA4FRb3I5G/HvMYKYg1pMJiHVEP4HH+U78YrPyG/B7tIK83zr1PldZdu5I9LxXPiPvE/u/A+eEucr+GDRX2K1x9y+e1Gjn+KRMUga5NDXa/xC9WkiXaYAQAA"
       },
       "Metadata": {
         "aws:cdk:path": "CdkVanityNumbersStack/CDKMetadata/Default"
       },
       "Condition": "CDKMetadataAvailable"
+    }
+  },
+  "Outputs": {
+    "cdkvanitynumbersapiEndpoint66446D70": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "cdkvanitynumbersapiC6B21F41"
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region"
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix"
+            },
+            "/",
+            {
+              "Ref": "cdkvanitynumbersapiDeploymentStageprod77044C3A"
+            },
+            "/"
+          ]
+        ]
+      }
     }
   },
   "Conditions": {

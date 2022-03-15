@@ -65,10 +65,9 @@ The main Lambda function about generating vanity numbers I have created locally 
 
 I have implemented an algorithm for generating the best vanity numbers. The way I choose which are the best vanity numbers is by looking up into hardcoded list of words.
 
-    - vanity-numbers-generator
-        - Description: Creates and saves 5 vanity numbers related to the phoneNumber and returns the last best three vanity numbers dynamoDB table.
-        
-        If the phone number is already saved in the dynamoDB it only returns the vanity numbers generated for it.
+vanity-numbers-generator script
+    - Description: Creates and saves 5 vanity numbers related to the phoneNumber and returns the last best three vanity numbers dynamoDB table.
+    If the phone number is already saved in the dynamoDB it only returns the vanity numbers generated for it.
 
 If I had more time I would definetely split this function into multiple scripts.
 ### Amazon API Gateway / RestAPI
@@ -86,19 +85,16 @@ If I had more time I would definetely split this function into multiple scripts.
             - Description: Executes the VanityNumbersAPI-vanity-numbers-generator Lambda Function.
             - body Model: application/json
 
-      ```
 
+      ```
     {
         "title": "VanityNumberModel",
-
         "type": "object",
-
         "properties": {
             "phoneNumber": { "type": "string" }
         }
     }
-
-  ```
+      ```
 ### Amazon Connect & Contact flows
 
 Amazon connect is a completely new part of AWS to me. After watching few tutorials it was pretty straight forward to work with the Amazon Connect panel and create the contact flows. The challange in this case was to understand the options that Amazonn Connect give us and how to store and work with parameters and attributes. If I had more time I would divided the workflow into more dialogs and make it more detailed and user friendly.

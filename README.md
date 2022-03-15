@@ -4,6 +4,7 @@
 We expect you to build this out as you would a production project for a client, only on a small scale (tests, error handling, etc). Where you don't have the time to implement something, add comments to your code or documentation on how you would have changed or added to your implementation in the "real world".
 
 Deliverables
+
 	•	Git Repo with all code and documentation
 
 	•	BONUS - a working Amazon Connect phone number to test in your environment :-)
@@ -31,9 +32,43 @@ Deliverables
 
 	•	Please include an architecture diagram.
 # Project Documentation
+### Infrastructure
+            - Database: AWS DynamoDB
+            - Compute: AWS Lambda (Node 14.x)
+            - API: AWS API Gateway
+            - Code Deployment: CDK and Cloud Formation
+          
+            Code Base:
+            - GitHub Repo: https://github.com/vasilurumovv/cdk-vanity-numbers
 ### Network Diagram
 ![NetworkDiagram](TO BE ADDED )
 
+### DynamoDB Tables
+Firstly, I created the DynamoDB Table "VanityNumbersTable" and set the primaryKey to be "phoneNumber".
+Then I created one dummy item which will reflect the structure of items that I will save in the database:
+
+  ```
+    {
+        phoneNumber: "1 (214) 211-2879",
+        date: "date",
+        vanityNumbersList: ["List of vanity Numbers"]
+    }
+```
+
+Finally, I configured the roles and policies to allow different actions related to the table.
+For the test purposes only I have allowed almost all actions which is not the best idea for production.
+
+### Lambda Functions
+I created a total of 3 Lambda functions, while I played around. However the logic needed to do the exercise I implemened in one of them. I have played around with different methods, accessing the DynamoDB and consuming parameters within my functions.
+
+The main Lambda function about generating vanity numbers I have created locally in my own IDE and continuesly pasted and tested in the AWS Lambda panel. 
+
+I have implemented an algorithm for generating the best vanity numbers. The way I choose which are the best vanity numbers is by looking up into hardcoded list of words.
+
+    - vanity-numbers-generator
+        - Description: Creates and saves 5 vanity numbers related to the phoneNumber and returns the last best three vanity numbers dynamoDB table. If the numbers is already saved in the dynamoDB it only returns the vanityNumbers generated.
+
+If I had more time I would definetely split this function into multiple scripts.
 ### Amazon API Gateway
 - voiceFoundry-VanityNumbers
     - !Important: This API Gateway was quickly thrown together, and I am well aware that it contains many security flaws that should never be in production!
@@ -58,52 +93,49 @@ Deliverables
                     "title": "Input"
                 }
                 ```
-            
-          
-### Website
-            Infrastructure: 
-            - Code Deployment: AWS S3 bucket
-            - API: AWS API Gateway
-            - Compute: AWS Lambda (Node 14.x)
-            - Database: AWS DynamoDB
-
-            Code Base:
-            - GitHub Repo: https://github.com/vasilurumovv/cdk-vanity-numbers
-### Lambda Functions
-    - VanityNumbersAPI-vanity-numbers-generator
-        - Description: Creates and saves 5 vanity numbers related to the phoneNumber and returns the last best three vanity numbers dynamoDB table. If the numbers is already saved in the dynamoDB it only returns the vanityNumbers generated.
-### DynamoDB Tables
-
 ### Amazon Connect & Contact flows
 
-Amazon connect is a completely new part of AWS to me. After watching few tutorials it was pretty straight forward to create the contact flows, however I had problem with claiming a phone number. Despite the fact that I have none phone numbers claimed, I constantly get that I have exceeded the number of phone numbers. The challanges here we to understand the options that Amazonn Connect give us and how to store and work with parameters and attributes. If I had more time I would divided the workflow into more dialogs and make it more detailed and user friendly.
+Amazon connect is a completely new part of AWS to me. After watching few tutorials it was pretty straight forward to work with the Amazon Connect panel and create the contact flows. The challange in this case was to understand the options that Amazonn Connect give us and how to store and work with parameters and attributes. If I had more time I would divided the workflow into more dialogs and make it more detailed and user friendly.
 
-- Issue with Amazon Connect phone Number: For some reason I am not able to claim a number in Amazon Connect. I have no claimed numbers and I receive as a feedback that I have reached the maximum of claimed numbers. For that reason I will hardcode the phoneNumber until I contact support and fix that isse.
+- Issue with claiming phone number in Amazon Connect:
 
-1 (214) 211-2879 / 1 (214) 211-BUSY.
+I had problem with claiming a phone number. For some reason I am not able to claim a number in Amazon Connect. Altough, I have no claimed numbers, Despite the fact that I have none phone numbers claimed, I constantly get feedback that I have reached the maximum of claimed numbers. For that reason I will hardcode the phoneNumber in my Lambda function until I contact support and fix that issue.
+
+The Hard Coded Phone Number I have used for testing:
+    ```
+    1 (214) 211-2879
+    ```
+The three best generated vanity numbers returned:
+    ```
+        [
+        "1 (214) 211-ATPZ",
+        "1 (214) 211-ATQW",
+        "1 (214) 211-BUSY"
+        ]
+    ```
 
 - [Contact Flow Diagrams]
 - ![Greeting Dialog](https://github.com/vasilurumovv/cdk-vanity-numbers/blob/1f6c4c08108869e72083521ff45a44d87747c6c1/photos/greetingDialog.png)
 - (![OnBoarding Dialog](https://github.com/vasilurumovv/cdk-vanity-numbers/blob/1f6c4c08108869e72083521ff45a44d87747c6c1/photos/onBoardingDialog.png))
 
+#### Cloud Formation
+
 ### Retrospective
 
 #### Final Thoughts
-I have never dealed with AWS resources and I found this project very intriguing. Despite the fact that the project is not ready for production yet I can say that was great learning experience, due to the many challenges that I faced.
+I have never dealed with AWS resources and I found this project very intriguing. Despite the fact that the project is not ready for production yet I can say that It was great learning experience, due to the many challenges that I have faced.
 
-#### Project Constraints
-The short time and the upcoming deadline made me put some constrains on the project in order to present an MVP. One of them is the algorithm behind generating best vanity numbers. So far I developed it to suggest an vanity number transfering only the last 4 digits of the number into characters. The way I choose which are the best vanity numbers is by looking up into hardcoded list of words. To improve that we can later on use word dictionary plugin or get many words from other sources.
-    
-#### The Data
-As per project description I used DynamoDb for saving the data. VanityNumbersTable had been createtd
-  
-#### Lambda
-I created a total of 3 Lambda functions, while I played around. However the logic needed to do the exercise I implemened in one of them. I would definetely split this function into multiple scripts.
-- VanityNumbersAPI-vanity-numbers-generator
-	- Description: Creates and saves 5 vanity numbers related to the phoneNumber and returns the last best three vanity numbers dynamoDB table. If the numbers is already saved in the dynamoDB it only returns the best three vanityNumbers generated.
+#### Project Constraints and what to Improve
+The short time and the upcoming deadline made me put some constrains on the project in order to present a MVP. 
+What I would like to improve:
 
-If I had more time I would definetely spend it on improving the vanity numbers generator. In this solution I simply format the phoneNumber entered and suggest a vanity numbers by transforming only the last 4 digits of a numbers.
+- The algorithm behind generating best vanity numbers currently transforms only the last 4 digits of the number into characters. The way I choose which are the best vanity numbers is by looking up into hardcoded list of words. To improve that we can later on use word dictionary plugin or get many words from other sources.
 
+- I would definetely split the generating vanity numbers Lambda function into multiple scripts.
+
+- Take into consideration roles, policies and permissions.
+
+- Improve error handling for both the RestAPI and Contact flows.
 #### Website
 TBA
 

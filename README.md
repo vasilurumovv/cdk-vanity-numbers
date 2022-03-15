@@ -41,7 +41,7 @@ Deliverables
             Code Base:
             - GitHub Repo: https://github.com/vasilurumovv/cdk-vanity-numbers
 ### Network Diagram
-![NetworkDiagram](TO BE ADDED )
+(![NetworkDiagram](https://github.com/vasilurumovv/cdk-vanity-numbers/blob/6cbfc2bdd3ed3fc560aac09c8f8952b05ba6a248/photos/NetworkDiagram.png))
 
 ### DynamoDB Tables
 Firstly, I created the DynamoDB Table "VanityNumbersTable" and set the primaryKey to be "phoneNumber".

@@ -104,10 +104,11 @@ If I had more time I would definetely split this function into multiple scripts.
     ```
     {
     "statusCode": {"type": "number"},
-    "vanityNumbers": {
+    "body": [{
         "type": "array",
         "items": { "type": "string" }
         }
+      ]
     }
 
 ### Amazon Connect & Contact flows

@@ -37,7 +37,8 @@ Deliverables
 - npm install
 - cdk bootstrap
 - cdk deploy
-- cdk deploy --parameters connectInstanceId='YOUR CONNECT INSTANCE ID' --parameters contactFlowName='NAME FOR NEW CONTACT FLOW'
+- cdk deploy --parameters connectInstanceId='YOUR CONNECT INSTANCE ID' --parameters 
+contactFlowName='NAME FOR NEW CONTACT FLOW'
 Enter y when asked to confirm the changes.
 - cdk diff - compare deployed stack with current state
 - cdk synth - emits the synthesized CloudFormation template

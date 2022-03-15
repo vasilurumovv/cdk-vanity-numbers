@@ -65,8 +65,9 @@ The main Lambda function about generating vanity numbers I have created locally 
 
 I have implemented an algorithm for generating the best vanity numbers. The way I choose which are the best vanity numbers is by looking up into hardcoded list of words.
 
-vanity-numbers-generator script
-    - Description: Creates and saves 5 vanity numbers related to the phoneNumber and returns the last best three vanity numbers dynamoDB table.
+- vanity-numbers-generator script
+
+    Description: Creates and saves 5 vanity numbers related to the phoneNumber and returns the last best three vanity numbers dynamoDB table.
     If the phone number is already saved in the dynamoDB it only returns the vanity numbers generated for it.
 
 If I had more time I would definetely split this function into multiple scripts.

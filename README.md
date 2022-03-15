@@ -5,18 +5,30 @@ We expect you to build this out as you would a production project for a client, 
 
 Deliverables
 	•	Git Repo with all code and documentation
+
 	•	BONUS - a working Amazon Connect phone number to test in your environment :-)
     Exercise
+
 	•	Create a Lambda that converts phone numbers to vanity numbers and save the best 5 resulting vanity numbers and the caller's number in a DynamoDB table. "Best" is defined as you see fit - explain your thoughts.
+
 	•	Create an Amazon Connect contact flow that looks at the caller's phone number and says the 3 vanity possiblities that come back from the Lambda function.
+
 	•	Create a custom resource for CloudFormation] that will allow you to publish the contact flow to a Connect instance with the appropriate Lambda ARN already in the contact flow so that there is no manual configuration of the flow.
+
 	•	Build a deployment package with AWS SAM, AWS CDK, or CloudFormation to allow a user, or assignment reviewer, to deploy your Lambda, custom resource, and anything else you'd like to add into their own AWS Account/Amazon Connect instance.
+
 	•	SUPER BONUS - a web app that displays the vanity numbers from the last 5 callers.
+
 	•	Writing and Documentation
+
 	•	Record your reasons for implementing the solution the way you did, struggles you faced and problems you overcame.
+
 	•	What shortcuts did you take that would be a bad practice in production?
+
 	•	What would you have done with more time? We know you have a life. :-)
+
 	•	What other considerations would you make before making our toy app into something that would be ready for high volumes of traffic, potential attacks from bad folks, etc.
+
 	•	Please include an architecture diagram.
 # Project Documentation
 ### Network Diagram
@@ -27,7 +39,7 @@ Deliverables
     - !Important: This API Gateway was quickly thrown together, and I am well aware that it contains many security flaws that should never be in production!
     - API is set up with cors to work with external sources.
     - Deployment Stage: Dev
-        - Base URL: https://0zv4m6zpze.execute-api.us-east-1.amazonaws.com/undefined/
+        - Base URL: https://0zv4m6zpze.execute-api.us-east-1.amazonaws.com/dev
     - /Methods
         - GET()
             - Description: Executes the VanityNumbersAPI-vanity-numbers Lambda Function
@@ -66,7 +78,10 @@ Deliverables
 - Amazon Connect phone Number: For some reason I am not able to claim a number in Amazon Connect. I have no claimed numbers and I receive as a feedback that I have reached the maximum of claimed numbers. For that reason I will hardcode the phoneNumber until I contact support and fix that isse.
 1 (214) 211-2879 / 1 (214) 211-BUSY.
 - See [Contact Flow Diagrams]
-- (.photos/AmazonConnectDiagrams.md)
+- ![Greeting Dialog](https://github.com/vasilurumovv/cdk-vanity-numbers/blob/1f6c4c08108869e72083521ff45a44d87747c6c1/photos/greetingDialog.png)
+- (![OnBoarding Dialog](https://github.com/vasilurumovv/cdk-vanity-numbers/blob/1f6c4c08108869e72083521ff45a44d87747c6c1/photos/onBoardingDialog.png))
+
+
 
 ### Retrospective
 

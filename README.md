@@ -104,11 +104,10 @@ If I had more time I would definetely split this function into multiple scripts.
     ```
     {
     "statusCode": {"type": "number"},
-    "body": [{
+    "body": {
         "type": "array",
         "items": { "type": "string" }
         }
-      ]
     }
 
 ### Amazon Connect & Contact flows

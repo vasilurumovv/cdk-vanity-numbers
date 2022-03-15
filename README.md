@@ -99,7 +99,7 @@ If I had more time I would definetely split this function into multiple scripts.
             "phoneNumber": { "type": "string" }
         }
     }
-
+  ```
     - returns object
     ```
     {

@@ -107,12 +107,10 @@ The Hard Coded Phone Number I have used for testing:
     1 (214) 211-2879
 
 The three best generated vanity numbers returned:
-    ```
+
         [
         "1 (214) 211-ATPZ",
-
         "1 (214) 211-ATQW",
-
         "1 (214) 211-BUSY"
 
         ]
